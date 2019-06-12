@@ -8,12 +8,12 @@ clinically vaidated and used primarily by the International Conference on Harmon
 Adverse Events. The MSSO (Maintenance and Support Services Organization) publishes an updated version twice a year.
 
 
-In our project, we need to model the Adverse Event data and link it to a representation of MedDRA in RDF.
+The PhUSE project "Going Translational with Linked Data (GoTWLD)" required medDRA terminology as RDF for the coding of adverse events. This lead to the development of R and SAS scripts that convert the original ASCII files to RDF as TTL. The scripts can be used by anyone who wants to convert their copy of MedDRA to Linked Data. 
 
 
 ## MedDRA Terminology Organization
 
-_Much of this content comes from Armando's presentation on 2019-03-18. The project team can watch the recording on the Teamwork site under "Files."_
+_Much of the content below is extracted from Dr. A. Oliva's presentation to the GoTWLD team on 2019-03-18. A recording of the meeting is available to team memmbers on the the project's Teamwork site under "Files."_
 
 Each AE term is organized into five levels, from the Low Level Term (LLT) which is often the common term documented by the subject or investigator. There may be many synonyms at the Low Level which are then mapped to the Preferred Term (PT). Mapping continue to the High Level Term (HLT), High Level Group Term (HLGT), and System Organ Class (SOC). The thousands of terms map up to 27 SOCs in the current version of MedDRA. 
 
