@@ -222,8 +222,7 @@ rdf_add(some_rdf,
 rdf_add(some_rdf, 
         subject      = paste0(MEDDRA, "MedDRA211"), 
         predicate    = paste0(DCTERMS,  "description"), 
-        object       = "A subset of MedDRA 211 terms to support the observations
-                        in the GoTWLD project, converted to RDF using R Scripts",
+        object       = "A subset of MedDRA 211 terms to support the observationsin the GoTWLD project, converted to RDF using R Scripts",
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"string")
 )
@@ -248,7 +247,8 @@ rdf_add(some_rdf,
         objectType   = "literal", 
         datatype_uri = paste0(XSD,"string")
 )
-# Calculate the date time of the run.
+# Calculate the date time of the run. Current form fails to load as xsd:datetime so 
+#   using string for now.
 conversionDate<-gsub("(\\d\\d)$", ":\\1",strftime(Sys.time(),"%Y-%m-%dT%H:%M:%S%z"))
 
 rdf_add(some_rdf, 
@@ -256,7 +256,7 @@ rdf_add(some_rdf,
         predicate    = paste0(PAV,  "createdOn"), 
         object       = conversionDate,
         objectType   = "literal", 
-        datatype_uri = paste0(XSD,"datetime")
+        datatype_uri = paste0(XSD,"string")
 )
 
 #--- 1. LLT Creation ---

@@ -12,7 +12,7 @@ meddra:MedDRA211
     dcterms:description "A subset of MedDRA 211 terms to support the observationsin the GoTWLD project, converted to RDF using R Scripts"^^xsd:string ;
     dcterms:title "MedDRA 211 as RDF"^^xsd:string ;
     bibio:status "Draft/Dev"^^xsd:string ;
-    pav:createdOn "2019-06-12T16:18:53-04:00"^^xsd:datetime ;
+    pav:createdOn "2019-06-12T16:30:11-04:00"^^xsd:string ;
     pav:version "0.0.1"^^xsd:string ;
     rdfs:label "MedDRA 211 converted to RDF"^^xsd:string .
 
