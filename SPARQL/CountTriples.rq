@@ -1,0 +1,14 @@
+# CountTriples.rq
+#   Count the triples in the remote PhSUE endpoint graph: Test
+SELECT ?tripleCount
+WHERE
+{
+    SERVICE <http://34.216.170.22:5820/MedDRA211/query>
+    {
+      SELECT (COUNT(?s) AS ?tripleCount)
+      WHERE
+      {
+        ?s ?p ?o
+      }
+   }
+}

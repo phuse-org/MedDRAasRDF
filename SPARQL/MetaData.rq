@@ -1,0 +1,21 @@
+# MetaData.rq
+#  Data creation and other metadata for the RDF Conversion
+
+PREFIX bibio: <http://purl.org/ontology/bibo/> 
+PREFIX dcterms: <http://purl.org/dc/terms/> 
+PREFIX meddra: <https://w3id.org/phuse/meddra#> 
+PREFIX pav: <http://purl.org/pav> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+
+SELECT *
+WHERE
+{
+    SERVICE <http://34.216.170.22:5820/MedDRA211/query>
+    {
+      SELECT *
+      WHERE
+      {
+        meddra:MedDRA211 ?p ?o
+      }
+   }
+}
