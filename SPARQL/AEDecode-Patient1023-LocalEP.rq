@@ -1,0 +1,32 @@
+# AEDecode-Patient1023-LocalEP.rq
+# 
+
+PREFIX cdiscpilot01: <https://w3id.org/phuse/cdiscpilot01#>
+PREFIX code: <https://w3id.org/phuse/code#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX study: <https://w3id.org/phuse/study#>
+
+SELECT *
+WHERE{
+    
+    SERVICE <http://localhost:5820/CTDasRDFOnt/query>
+    {
+        SELECT ?ae ?meddrallt
+        WHERE
+        {
+          cdiscpilot01:Person_01-701-1023  study:afflictedBy ?ae .
+          ?ae code:hasCode ?meddrallt .
+        }
+    }
+    # SERVICE <http://34.216.170.22:5820/MedDRA211/query>
+    SERVICE <http://localhost:5820/MedDRA/query>
+    {
+        SELECT *
+        WHERE
+        {
+            OPTIONAL{
+            ?meddrallt skos:prefLabel ?ltLabel 
+            }
+        }
+    }
+}
