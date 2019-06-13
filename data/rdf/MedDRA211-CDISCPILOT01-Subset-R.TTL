@@ -12,24 +12,27 @@ meddra:MedDRA211
     dcterms:description "A subset of MedDRA 211 terms to support the observationsin the GoTWLD project, converted to RDF using R Scripts"^^xsd:string ;
     dcterms:title "MedDRA 211 as RDF"^^xsd:string ;
     bibio:status "Draft/Dev"^^xsd:string ;
-    pav:createdOn "2019-06-12T16:30:11-04:00"^^xsd:string ;
+    pav:createdOn "2019-06-13T09:46:41-04:00"^^xsd:string ;
     pav:version "0.0.1"^^xsd:string ;
     rdfs:label "MedDRA 211 converted to RDF"^^xsd:string .
 
 meddra:m10000032
     a skos:Concept, meddra:HighLevelConcept ;
+    skos:altLabel "CARDIAC CONDUCTION DISORDERS"^^xsd:string ;
     skos:prefLabel "Cardiac conduction disorders"^^xsd:string ;
     meddra:hasHLGT meddra:m10007521 ;
     meddra:hasIdentifier "10000032"^^xsd:string .
 
 meddra:m10001316
     a skos:Concept, meddra:HighLevelGroupConcept ;
+    skos:altLabel "ADMINISTRATION SITE REACTIONS"^^xsd:string ;
     skos:prefLabel "Administration site reactions"^^xsd:string ;
     meddra:hasIdentifier "10001316"^^xsd:string ;
     meddra:hasSOC meddra:m10018065, meddra:m10022117 .
 
 meddra:m10003041
     a skos:Concept, meddra:PreferredConcept ;
+    skos:altLabel "APPLICATION SITE ERYTHEMA"^^xsd:string ;
     skos:prefLabel "Application site erythema"^^xsd:string ;
     meddra:hasHLT meddra:m10003057, meddra:m10015151 ;
     meddra:hasIdentifier "10003041"^^xsd:string .
@@ -44,12 +47,14 @@ meddra:m10003047
 
 meddra:m10003053
     a skos:Concept, meddra:PreferredConcept ;
+    skos:altLabel "APPLICATION SITE PRURITUS"^^xsd:string ;
     skos:prefLabel "Application site pruritus"^^xsd:string ;
     meddra:hasHLT meddra:m10003057, meddra:m10049293 ;
     meddra:hasIdentifier "10003053"^^xsd:string .
 
 meddra:m10003057
     a skos:Concept, meddra:HighLevelConcept ;
+    skos:altLabel "APPLICATION AND INSTILLATION SITE REACTIONS"^^xsd:string ;
     skos:prefLabel "Application and instillation site reactions"^^xsd:string ;
     meddra:hasHLGT meddra:m10001316 ;
     meddra:hasIdentifier "10003057"^^xsd:string .
@@ -64,6 +69,7 @@ meddra:m10003058
 
 meddra:m10003677
     a skos:Concept, meddra:PreferredConcept ;
+    skos:altLabel "ATRIOVENTRICULAR BLOCK SECOND DEGREE"^^xsd:string ;
     skos:prefLabel "Atrioventricular block second degree"^^xsd:string ;
     meddra:hasHLT meddra:m10000032 ;
     meddra:hasIdentifier "10003677"^^xsd:string .
@@ -78,12 +84,14 @@ meddra:m10003851
 
 meddra:m10007521
     a skos:Concept, meddra:HighLevelGroupConcept ;
+    skos:altLabel "CARDIAC ARRHYTHMIAS"^^xsd:string ;
     skos:prefLabel "Cardiac arrhythmias"^^xsd:string ;
     meddra:hasIdentifier "10007521"^^xsd:string ;
     meddra:hasSOC meddra:m10007541 .
 
 meddra:m10007541
     a skos:Concept, meddra:SystemOrganClassConcept ;
+    skos:altLabel "CARDIAC DISORDERS"^^xsd:string ;
     skos:prefLabel "Cardiac disorders"^^xsd:string ;
     skos:topConceptOf meddra:MedDRA ;
     meddra:hasIdentifier "10007541"^^xsd:string .
@@ -98,54 +106,63 @@ meddra:m10012727
 
 meddra:m10012735
     a skos:Concept, meddra:PreferredConcept ;
+    skos:altLabel "DIARRHOEA"^^xsd:string ;
     skos:prefLabel "Diarrhoea"^^xsd:string ;
     meddra:hasHLT meddra:m10012736 ;
     meddra:hasIdentifier "10012735"^^xsd:string .
 
 meddra:m10012736
     a skos:Concept, meddra:HighLevelConcept ;
+    skos:altLabel "DIARRHOEA (EXCL INFECTIVE)"^^xsd:string ;
     skos:prefLabel "Diarrhoea (excl infective)"^^xsd:string ;
     meddra:hasHLGT meddra:m10017977 ;
     meddra:hasIdentifier "10012736"^^xsd:string .
 
 meddra:m10014982
     a skos:Concept, meddra:HighLevelGroupConcept ;
+    skos:altLabel "EPIDERMAL AND DERMAL CONDITIONS"^^xsd:string ;
     skos:prefLabel "Epidermal and dermal conditions"^^xsd:string ;
     meddra:hasIdentifier "10014982"^^xsd:string ;
     meddra:hasSOC meddra:m10040785 .
 
 meddra:m10015150
     a skos:Concept, meddra:PreferredConcept ;
+    skos:altLabel "ERYTHEMA"^^xsd:string ;
     skos:prefLabel "Erythema"^^xsd:string ;
     meddra:hasHLT meddra:m10015151 ;
     meddra:hasIdentifier "10015150"^^xsd:string .
 
 meddra:m10015151
     a skos:Concept, meddra:HighLevelConcept ;
+    skos:altLabel "ERYTHEMAS"^^xsd:string ;
     skos:prefLabel "Erythemas"^^xsd:string ;
     meddra:hasHLGT meddra:m10014982 ;
     meddra:hasIdentifier "10015151"^^xsd:string .
 
 meddra:m10017947
     a skos:Concept, meddra:SystemOrganClassConcept ;
+    skos:altLabel "GASTROINTESTINAL DISORDERS"^^xsd:string ;
     skos:prefLabel "Gastrointestinal disorders"^^xsd:string ;
     skos:topConceptOf meddra:MedDRA ;
     meddra:hasIdentifier "10017947"^^xsd:string .
 
 meddra:m10017977
     a skos:Concept, meddra:HighLevelGroupConcept ;
+    skos:altLabel "GASTROINTESTINAL MOTILITY AND DEFAECATION CONDITIONS"^^xsd:string ;
     skos:prefLabel "Gastrointestinal motility and defaecation conditions"^^xsd:string ;
     meddra:hasIdentifier "10017977"^^xsd:string ;
     meddra:hasSOC meddra:m10017947 .
 
 meddra:m10018065
     a skos:Concept, meddra:SystemOrganClassConcept ;
+    skos:altLabel "GENERAL DISORDERS AND ADMINISTRATION SITE CONDITIONS"^^xsd:string ;
     skos:prefLabel "General disorders and administration site conditions"^^xsd:string ;
     skos:topConceptOf meddra:MedDRA ;
     meddra:hasIdentifier "10018065"^^xsd:string .
 
 meddra:m10022117
     a skos:Concept, meddra:SystemOrganClassConcept ;
+    skos:altLabel "INJURY, POISONING AND PROCEDURAL COMPLICATIONS"^^xsd:string ;
     skos:prefLabel "Injury, poisoning and procedural complications"^^xsd:string ;
     skos:topConceptOf meddra:MedDRA ;
     meddra:hasIdentifier "10022117"^^xsd:string .
@@ -160,12 +177,14 @@ meddra:m10024781
 
 meddra:m10040785
     a skos:Concept, meddra:SystemOrganClassConcept ;
+    skos:altLabel "SKIN AND SUBCUTANEOUS TISSUE DISORDERS"^^xsd:string ;
     skos:prefLabel "Skin and subcutaneous tissue disorders"^^xsd:string ;
     skos:topConceptOf meddra:MedDRA ;
     meddra:hasIdentifier "10040785"^^xsd:string .
 
 meddra:m10049293
     a skos:Concept, meddra:HighLevelConcept ;
+    skos:altLabel "PRURITUS NEC"^^xsd:string ;
     skos:prefLabel "Pruritus NEC"^^xsd:string ;
     meddra:hasHLGT meddra:m10014982 ;
     meddra:hasIdentifier "10049293"^^xsd:string .
