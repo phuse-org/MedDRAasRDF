@@ -1,8 +1,8 @@
 #______________________________________________________________________________
 # FILE: r/validation/compTriplesTTL-app/global.R
 # DESC: Compare triples in two TTL files, starting at a named Subject.
-#         Used to compare instance data created in the Ontology approach with
-#         data converted using R
+#       COmmonly used to compare files generated separately by R, SAS, or 
+#       ontology instance data.
 # SRC :
 # IN  : TTL files in a local folder. Typically /data/rdf
 # OUT : 
@@ -20,7 +20,7 @@ library(shiny)
 
 rm(list = ls(all.names = TRUE))  # Clear workspace
 
-setwd("C:/_gitHub/CTDasRDF")
+setwd("C:/_gitHub/MedDRAasRDF")
 
 # Functions
 source('r/Functions.R')

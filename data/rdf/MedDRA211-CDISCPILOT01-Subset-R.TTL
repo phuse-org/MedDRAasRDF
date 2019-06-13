@@ -1,4 +1,3 @@
-@base <localhost://> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix bibio: <http://purl.org/ontology/bibo/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -12,7 +11,7 @@ meddra:MedDRA211
     dcterms:description "A subset of MedDRA 211 terms to support the observationsin the GoTWLD project, converted to RDF using R Scripts"^^xsd:string ;
     dcterms:title "MedDRA 211 as RDF"^^xsd:string ;
     bibio:status "Draft/Dev"^^xsd:string ;
-    pav:createdOn "2019-06-13T09:46:41-04:00"^^xsd:string ;
+    pav:createdOn "2019-06-13T13:54:19-04:00"^^xsd:dateTime ;
     pav:version "0.0.1"^^xsd:string ;
     rdfs:label "MedDRA 211 converted to RDF"^^xsd:string .
 
@@ -188,4 +187,3 @@ meddra:m10049293
     skos:prefLabel "Pruritus NEC"^^xsd:string ;
     meddra:hasHLGT meddra:m10014982 ;
     meddra:hasIdentifier "10049293"^^xsd:string .
-

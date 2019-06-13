@@ -73,7 +73,6 @@ socOntSubset <- c('10007541',
                   '10040785')
 
 #--- FUNCTIONS ----------------------------------------------------------------
-
 #' Read MedDRA asc files.
 #' 
 #'
@@ -212,15 +211,6 @@ socData$ulabel <- toupper(socData$label) # upcase label
 #--- RDF Creation Statements --------------------------------------------------
 some_rdf <- rdf()  # initialize 
 
-MEDDRA <- "https://w3id.org/phuse/meddra#"
-XSD <- "http://www.w3.org/2001/XMLSchema#"
-RDF <- "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-SKOS <- "http://www.w3.org/2004/02/skos/core#"
-RDFS <- "http://www.w3.org/2000/01/rdf-schema#"
-DCTERMS <- 'http://purl.org/dc/terms/'
-BIBO <- 'http://purl.org/ontology/bibo/'
-PAV <- 'http://purl.org/pav'
-
 #---- 0. Graph Creation metadata for creation date and method
 rdf_add(some_rdf, 
         subject      = paste0(MEDDRA, "MedDRA211"), 
@@ -259,14 +249,17 @@ rdf_add(some_rdf,
 )
 # Calculate the date time of the run. Current form fails to load as xsd:datetime so 
 #   using string for now.
-conversionDate<-gsub("(\\d\\d)$", ":\\1",strftime(Sys.time(),"%Y-%m-%dT%H:%M:%S%z"))
+ conversionDate<-gsub("(\\d\\d)$", ":\\1",strftime(Sys.time(),"%Y-%m-%dT%H:%M:%S%z"))
+
+#TW Try removal of T for import
+#conversionDate<-gsub("(\\d\\d)$", ":\\1",strftime(Sys.time(),"%Y-%m-%d-%H:%M:%S%z"))
 
 rdf_add(some_rdf, 
         subject      = paste0(MEDDRA, "MedDRA211"), 
         predicate    = paste0(PAV,  "createdOn"), 
         object       = conversionDate,
         objectType   = "literal", 
-        datatype_uri = paste0(XSD,"string")
+        datatype_uri = paste0(XSD,"dateTime")
 )
 
 #--- 1. LLT Creation ---
@@ -352,11 +345,11 @@ for(i in 1:nrow(ptData))
     datatype_uri  = paste0(XSD,"string")
   )
   rdf_add(some_rdf, 
-          subject       = paste0(MEDDRA, paste0("m", ptData[i,"code"])), 
-          predicate     = paste0(SKOS,  "altLabel"), 
-          object        = ptData[i,"ulabel"],
-          objectType    = "literal", 
-          datatype_uri  = paste0(XSD,"string")
+    subject       = paste0(MEDDRA, paste0("m", ptData[i,"code"])), 
+    predicate     = paste0(SKOS,  "altLabel"), 
+    object        = ptData[i,"ulabel"],
+    objectType    = "literal", 
+    datatype_uri  = paste0(XSD,"string")
   )
   rdf_add(some_rdf, 
     subject      = paste0(MEDDRA, paste0("m", ptData[i,"code"])), 
@@ -393,11 +386,11 @@ for(i in 1:nrow(hltData))
     datatype_uri  = paste0(XSD,"string")
   )
   rdf_add(some_rdf, 
-          subject       = paste0(MEDDRA, paste0("m", hltData[i,"code"])), 
-          predicate     = paste0(SKOS,  "altLabel"), 
-          object        = hltData[i,"ulabel"],
-          objectType    = "literal", 
-          datatype_uri  = paste0(XSD,"string")
+     subject       = paste0(MEDDRA, paste0("m", hltData[i,"code"])), 
+     predicate     = paste0(SKOS,  "altLabel"), 
+     object        = hltData[i,"ulabel"],
+     objectType    = "literal", 
+     datatype_uri  = paste0(XSD,"string")
   )
   rdf_add(some_rdf, 
     subject      = paste0(MEDDRA, paste0("m", hltData[i,"code"])), 
@@ -434,11 +427,11 @@ for(i in 1:nrow(hlgtData))
     datatype_uri = paste0(XSD,"string")
   )
   rdf_add(some_rdf, 
-          subject      = paste0(MEDDRA, paste0("m", hlgtData[i,"code"])), 
-          predicate    = paste0(SKOS,  "altLabel"), 
-          object       = hlgtData[i,"ulabel"],
-          objectType   = "literal", 
-          datatype_uri = paste0(XSD,"string")
+    subject      = paste0(MEDDRA, paste0("m", hlgtData[i,"code"])), 
+    predicate    = paste0(SKOS,  "altLabel"), 
+    object       = hlgtData[i,"ulabel"],
+    objectType   = "literal", 
+    datatype_uri = paste0(XSD,"string")
   )
   rdf_add(some_rdf, 
     subject      = paste0(MEDDRA, paste0("m", hlgtData[i,"code"])), 
@@ -475,13 +468,14 @@ for(i in 1:nrow(socData))
     datatype_uri = paste0(XSD,"string")
   )
   rdf_add(some_rdf, 
-          subject      = paste0(MEDDRA, paste0("m", socData[i,"code"])), 
-          predicate    = paste0(SKOS,  "altLabel"), 
-          object       = socData[i,"ulabel"],
-          objectType   = "literal", 
-          datatype_uri = paste0(XSD,"string")
+    subject      = paste0(MEDDRA, paste0("m", socData[i,"code"])), 
+    predicate    = paste0(SKOS,  "altLabel"), 
+    object       = socData[i,"ulabel"],
+    objectType   = "literal", 
+    datatype_uri = paste0(XSD,"string")
   )
   rdf_add(some_rdf, 
+  
     subject   = paste0(MEDDRA, paste0("m", socData[i,"code"])), 
     predicate = paste0(SKOS,  "topConceptOf"), 
     object    = paste0(MEDDRA, "MedDRA")
