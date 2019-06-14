@@ -1,5 +1,10 @@
-# AEDecode-Patient1023-LocalEP.rq
-# 
+# AEDecode-Patient1023-RemoteEP.rq
+#   Find the Low Level AE terms for patient 01-701-1023 in study CDISCPILOT01. 
+# REQ: 1. Endpoint running at 34.216.170.22:5820
+#      2. Study data loaded to the graph CTDasRDFOnt  
+#         (example instance data from the Ontology)
+#      3. Subset of the MedDRA211 as RDF loaded to the graph MedDRA211
+
 
 PREFIX cdiscpilot01: <https://w3id.org/phuse/cdiscpilot01#>
 PREFIX code: <https://w3id.org/phuse/code#>
@@ -9,7 +14,7 @@ PREFIX study: <https://w3id.org/phuse/study#>
 SELECT *
 WHERE{
     
-    SERVICE <http://localhost:5820/CTDasRDFOnt/query>
+    SERVICE <http://34.216.170.22:5820/CTDasRDFOnt/query>
     {
         SELECT ?ae ?meddrallt
         WHERE
@@ -18,8 +23,7 @@ WHERE{
           ?ae code:hasCode ?meddrallt .
         }
     }
-    # SERVICE <http://34.216.170.22:5820/MedDRA211/query>
-    SERVICE <http://localhost:5820/MedDRA/query>
+    SERVICE <http://34.216.170.22:5820/MedDRA211/query>
     {
         SELECT *
         WHERE
