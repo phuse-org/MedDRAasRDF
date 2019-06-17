@@ -3,11 +3,10 @@
 # DESC: Read the source .asc files from MedDRA into R dataframes for 
 #         processing into RDF. 
 #       Create TTL file.
-# SRC : 
+# Doc:  https://github.com/phuse-org/MedDRAasRDF/blob/master/doc/MedDRAConversion.md
+#       /doc/MedDRA-3Patient-Subsetting.xlsx
 # IN  : *.asc MedDRA files from MSSO
 # OUT : data/rdf/MedDRA211-CDISCPILOT01-Subset-R.TTL
-# REQ : 
-# SRC : 
 # NOTE: rdf_add statements ordered alphabetically by predicate QNAM for ease of 
 #         comparison with ordered QA query results.
 #       Use of for loop instead of ddply. Looping with ddply may be incompatible
@@ -32,45 +31,56 @@ subsetFlag = "Y"
 
 # Subsetting values for each files. This could later move to a configuration file
 #  created as a result of a query against the ontology instance data. For now, 
-#  enjoy this nasty manualkludge for values indentified in the Ontology
+#  enjoy this nasty manual kludge for values indentified in the Ontology
 #  instance data.
+#  For details, see the github page and the file /doc/MedDRA-3Patient-Subsetting.xlsx
 
-# Note that 10003041 and 10003053 each map to TWO HLT codes.
+# llt   : 7 unique codes
+#TW confirmed 2019-06-17 
+lltSubset <- c('10003041',
+               '10003047',
+               '10003058',
+               '10003851',
+               '10012727',
+               '10015150',
+               '10024781')
+
+# pt  : 5 unique codes
+#TW confirmed 2019-06-17 
+ptSubset <- c('10003041', 
+              '10003053',
+              '10003677',
+              '10012735',
+              '10015150'
+
+)
+
+# Note how 10003041 and 10003053 each map to TWO HLT codes.
 #  pt        hlt
 # 10003041	10003057
 #           10015151
 # 10003053	10049293
 #           10003057
 
-ptOntSubset <- c('10003041', 
-                 '10003053',
-                 '10003677',
-                 '10012735',
-                 '10015150'
-)
-# llt 
-ltOntSubset <- c('10003047',
-                 '10003058',
-                 '10003851',
-                 '10012727',
-                 '10024781')
-#  hlt
-hltOntSubset <- c( '10000032',
-                   '10003057',
-                   '10012736',
-                   '10015151',
-                   '10049293')
-# hlgt
-hlgtOntSubset <- c( '10001316',
-                    '10007521',
-                    '10014982',
-                    '10017977')
-# soc
-socOntSubset <- c('10007541',
-                  '10017947',
-                  '10018065',
-                  '10022117',
-                  '10040785')
+#  hlt  : 5 Unique codes
+hlltSubset <- c('10000032',
+                '10003057',
+                '10012736',
+                '10015151',
+                '10049293')
+
+# hlgt : 4 Unique codes
+hlgtSubset <- c('10001316',
+                '10007521',
+                '10014982',
+                '10017977')
+
+# soc  : 5 unique codes
+socSubset <- c('10007541',
+               '10017947',
+               '10018065',
+               '10022117',
+               '10040785')
 
 #--- FUNCTIONS ----------------------------------------------------------------
 #' Read MedDRA asc files.
@@ -134,7 +144,7 @@ list2env(prefixUC , envir = .GlobalEnv)
 lltData <- readAscFile(ascFile="llt", colNames=c("code", "label", "PT_code"))
 
 # Subset
-if(subsetFlag == "Y"){ lltData <- subset(lltData, code  %in% ltOntSubset) }
+if(subsetFlag == "Y"){ lltData <- subset(lltData, code  %in% lltSubset) }
 
 lltData$rowID <- 1:nrow(lltData) # row index
 lltData$ulabel <- toupper(lltData$label) # upcase label
@@ -143,7 +153,7 @@ lltData$ulabel <- toupper(lltData$label) # upcase label
 ptData <- readAscFile(ascFile="pt", colNames=c("code", "label", "SOC_code"))
 
 # Subset
-if(subsetFlag == "Y"){ ptData <- subset(ptData, code %in% ptOntSubset )}
+if(subsetFlag == "Y"){ ptData <- subset(ptData, code %in% ptSubset )}
 
 ptData$rowID <- 1:nrow(ptData) # row index  
 ptData$ulabel <- toupper(ptData$label) # upcase label
@@ -152,7 +162,7 @@ ptData$ulabel <- toupper(ptData$label) # upcase label
 hltData <- readAscFile(ascFile="hlt", colNames=c("code", "label"))
 
 # Subset
-if(subsetFlag == "Y"){hltData <- subset(hltData, code %in% hltOntSubset)}
+if(subsetFlag == "Y"){hltData <- subset(hltData, code %in% hlltSubset)}
 
 hltData$rowID <- 1:nrow(hltData) # row index  
 hltData$ulabel <- toupper(hltData$label) # upcase label
@@ -162,7 +172,7 @@ hlt_ptKey <- readAscFile(ascFile="hlt_pt", colNames=c("HLT_code", "PT_code"))
 
 #DEV  Subset for testing
 # Uses same subset as the subsetting of pt earlier
-if(subsetFlag == "Y"){hlt_ptKey <- subset(hlt_ptKey, PT_code %in% ptOntSubset)}
+if(subsetFlag == "Y"){hlt_ptKey <- subset(hlt_ptKey, PT_code %in% ptSubset)}
 hlt_ptKey$rowID <- 1:nrow(hlt_ptKey) # row index  
 
 # Merge in the HLT code to the PT dataframe
@@ -175,7 +185,7 @@ hlgt_hltKey <- readAscFile(ascFile="hlgt_hlt", colNames=c("HLGT_code", "HLT_code
 
 # DEV Subset for testing (match to ptcode in llt sheet)
 # Uses same subset as the subsetting of pt earlier
-if(subsetFlag == "Y"){hlgt_hltKey <- subset(hlgt_hltKey, HLT_code %in% hltOntSubset)}
+if(subsetFlag == "Y"){hlgt_hltKey <- subset(hlgt_hltKey, HLT_code %in% hlltSubset)}
 
 # Merge in the HLGT code to the htl dataframe
 hltData <- merge(hltData, hlgt_hltKey, by.x="code", by.y="HLT_code", all=FALSE)
@@ -185,14 +195,14 @@ hltData$rowID <- 1:nrow(hltData) # row index
 hlgtData <- readAscFile(ascFile="hlgt", colNames=c("code", "label"))
 
 # Subset
-if(subsetFlag == "Y"){hlgtData <- subset(hlgtData, code %in% hlgtOntSubset)}
+if(subsetFlag == "Y"){hlgtData <- subset(hlgtData, code %in% hlgtSubset)}
 
 # soc_HLGT key table to obtain HLT code
 soc_hlgtKey <- readAscFile(ascFile="soc_hlgt", colNames=c("SOC_code", "HLGT_code")) 
 
 # DEV Subset for testing (match to ptcode in llt sheet)
 # Uses same subset as the subsetting of hlgt earlier
-if(subsetFlag == "Y"){soc_hlgtKey <- subset(soc_hlgtKey, HLGT_code %in% hlgtOntSubset)}
+if(subsetFlag == "Y"){soc_hlgtKey <- subset(soc_hlgtKey, HLGT_code %in% hlgtSubset)}
 
 # Merge in the HLGT code to the hlt dataframe
 hlgtData <- merge(hlgtData, soc_hlgtKey, by.x="code", by.y="HLGT_code", all=FALSE)
@@ -203,9 +213,12 @@ hlgtData$ulabel <- toupper(hlgtData$label) # upcase label
 socData <- readAscFile(ascFile="soc", colNames=c("code", "label", "short"))
 
 # Subset
-if(subsetFlag == "Y"){ socData <- subset(socData, code %in% socOntSubset) }
+if(subsetFlag == "Y"){ socData <- subset(socData, code %in% socSubset) }
 socData$rowID <- 1:nrow(socData) # row index
 socData$ulabel <- toupper(socData$label) # upcase label
+
+
+
 
 #------------------------------------------------------------------------------
 #--- RDF Creation Statements --------------------------------------------------
