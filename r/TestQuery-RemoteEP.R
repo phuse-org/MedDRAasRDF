@@ -9,7 +9,7 @@
 ###############################################################################
 library(SPARQL)
 
-# Query StardogTriple Store ----
+# Query Remote MedDRA endpoint ----
 endpoint <- "http://34.216.170.22:5820/MedDRA211/query"
 
 query <- "SELECT ?s ?p ?o

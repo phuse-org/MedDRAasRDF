@@ -88,17 +88,32 @@ The following SPARQL query inputs the adverse event record from our study instan
 <img src="images/Meddra-Query.png" width=200/>
 
 
-# Data Conversion with R
-
-<font class="warning">NOTE: Current scripts must be updated to account for multi-axiality</font>
+# Data Conversion
+Both SAS and R can be used to convert the ASCII files to RDF using the processes documented below.
 
 ## Source Files
-MedDRA files supplied as ASCII .asc files by the MSSO are serialized to RDF in the Terse Triple Language (TTL) format.
+MedDRA files supplied by the MSSO as ASCII files with the .asc file extension. The files are serialized to RDF in the Terse Triple Language (TTL) format.
 
-* Five files contain the medication conditions and codes (LLT, PT, HLT, HLGT, SOC)
-    * LLT file contains the PT codes to provide the LLT to PT mapping
-    * PT file contains the *Primary SOC* code to which the PT term is mapped.
-* Three files contain additional mappings evident in their names:  HLT_PT, HLGT_HLT, SOC_HLGT
+Five files contain the medication conditions and codes (LLT, PT, HLT, HLGT, SOC). See the diagrams below for how the files are related.
+
+1. *llt.asc*
+   - Contains the LLT code in column 1 and the PT code in column 3. In many cases the LLT and PT codes are identical. The PT code is used to link to the PT file.
+
+2. *pt.asc*  
+  - Contains the *Primary SOC* code to which the PT term is mapped.
+
+3.*hlt.asc*
+
+4. *hlgt.asc*
+
+5. *soc.asc*
+
+Three files contain additional mappings and, as indicated by their names, faciliate the merging of the terminology fils. 
+1. *hlt_pt.asc*
+
+2. *hlgt_hlt*
+
+3. *soc_hlgt.asc*
 
 These files enable mapping of any LLT to its Primary SOC and optionally to Secondary SOC's.
 
@@ -108,11 +123,42 @@ These files enable mapping of any LLT to its Primary SOC and optionally to Secon
 <img src="images/MedDRA-LLTtoSOC.png" width=800/>
 
 
+### Data Subset
+Three patients (1015, 1023, 1028) were selected from the CDISCPILOT01 dataset.
+
+The patients reported 9 Adverse Events, two of which are not unique. Patient 1023 had two reports of Erythema (LLT 10015150) and patients 1015 and 1028 both reported Application site itching (LLT 10003047). This results in a unique list of 7 LLT Adverse event terms. 
+
+When mapping from LLT to PT, the PT terms 10015150 and 10003041 are also their own LLT term. Also, some LLT terms map to the same PT:
+
+LLT           PT
+10003058  --> 10003041
+10003041  --> 10003041
+
+LLT           PT
+10015150  --> 10015150
+10024781  --> 10015150
+
+The result is the need to pull only 5 codes from the PT file to match the 7 unique codes recorded as LLT terms. 
+
+
+Merging from PT to HLT is facilitated by the file *hlt_pt.asc*. The left column of this file is the hlt code and the right column in the pt code. One PT often matches to mutliple HLT codes. For the subsetting, this results in 5 unique HLT codes.
+
+
+The file hlgt_hlt.asc provides the links from HLT to HLGT. The left column is the HLGT code and the right is the HLT. The original 7 unique LLT terms have now rolled up into 4 HLGT codes.
+
+
+The final from HLGT to SOC is provided in soc_hlgt.asc. 
+ 
+
+
 ## R Script
 The R library `rdflib` is used to serialize the data into RDF. This package is a wrapper around the `redland` package, providing a much cleaner implementation. 
 
 
 <img src="images/MedDRA-ProgramFlow-medDRAReadAsc.png" width=600/>
+
+
+
 
 ## Validation 
 1.Ontology vs. R Script Validation
