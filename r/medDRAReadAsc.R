@@ -9,14 +9,14 @@
 # OUT : data/rdf/MedDRA211-CDISCPILOT01-Subset-R.TTL
 # NOTE: rdf_add statements ordered alphabetically by predicate QNAM for ease of 
 #         comparison with ordered QA query results.
-#       Use of for loop instead of ddply. Looping with ddply may be incompatible
-#         with rdflib?
+#       Use of for loop instead of ddply. 
+#         
 # TESTING:  LLT: meddra:m10003851
 #
 #
 # TODO:  * move subsetting to separate code/function for easy of enable/disable
-#        * What do we call this graph? What is the Subject and how do we attach 
-#            everything to it.
+#     
+#         Open Question: 
 #        * Should MedDRA be : https://w3id.org/phuse/MEDDRA21_1/  or 
 #        as is now: https://w3id.org/phuse/meddra#
 #______________________________________________________________________________
@@ -35,8 +35,7 @@ subsetFlag = "Y"
 #  instance data.
 #  For details, see the github page and the file /doc/MedDRA-3Patient-Subsetting.xlsx
 
-# llt   : 7 unique codes
-#TW confirmed 2019-06-17 
+# llt   : 7 unique codes for development and testing purposes
 lltSubset <- c('10003041',
                '10003047',
                '10003058',
@@ -45,15 +44,12 @@ lltSubset <- c('10003041',
                '10015150',
                '10024781')
 
-# pt  : 5 unique codes
-#TW confirmed 2019-06-17 
+# pt  : 5 unique codes for development and testing purposes
 ptSubset <- c('10003041', 
               '10003053',
               '10003677',
               '10012735',
-              '10015150'
-
-)
+              '10015150')
 
 # Note how 10003041 and 10003053 each map to TWO HLT codes.
 #  pt        hlt
@@ -62,20 +58,20 @@ ptSubset <- c('10003041',
 # 10003053	10049293
 #           10003057
 
-#  hlt  : 5 Unique codes
+#  hlt  : 5 Unique codes for development and testing purposes
 hlltSubset <- c('10000032',
                 '10003057',
                 '10012736',
                 '10015151',
                 '10049293')
 
-# hlgt : 4 Unique codes
+# hlgt : 4 Unique codes for development and testing purposes
 hlgtSubset <- c('10001316',
                 '10007521',
                 '10014982',
                 '10017977')
 
-# soc  : 5 unique codes
+# soc  : 5 unique codes for development and testing purposes
 socSubset <- c('10007541',
                '10017947',
                '10018065',
@@ -217,9 +213,6 @@ if(subsetFlag == "Y"){ socData <- subset(socData, code %in% socSubset) }
 socData$rowID <- 1:nrow(socData) # row index
 socData$ulabel <- toupper(socData$label) # upcase label
 
-
-
-
 #------------------------------------------------------------------------------
 #--- RDF Creation Statements --------------------------------------------------
 some_rdf <- rdf()  # initialize 
@@ -302,7 +295,6 @@ for(i in 1:nrow(lltData))
     predicate = paste0(RDF,  "type"), 
     object    = paste0(MEDDRA, "MeddraConcept")
   )
-  
   rdf_add(some_rdf, 
     subject   = paste0(MEDDRA, paste0("m", lltData[i,"code"])), 
     predicate = paste0(RDF,  "type"), 
@@ -335,7 +327,6 @@ for(i in 1:nrow(lltData))
           datatype_uri = paste0(XSD,"string")
   )
 }  #--- End llt triples
-
 
 #--- 2. pt Creation ---
 for(i in 1:nrow(ptData))
